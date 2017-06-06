@@ -54,11 +54,11 @@ exports.create = function (req, res, next) {
 
     var tip = models.Tip.build(
         {text: req.body.text,
-        QuizId: req.quiz.id
+        QuizId: req.quiz.id,
         AuthorId: authorId
         });
 
-    tip.save({fields: ["text", "QuizId", "AuthorId"]}))
+    tip.save({fields: ["text", "QuizId", "AuthorId"]})
         .then(function (tip) {
             req.flash('success', 'Pista creado con éxito.');
 
