@@ -38,13 +38,30 @@ router.get(/(?!\/new$|\/edit$|\/play$|\/check$|\/session$|\/(\d+)$)\/[^\/]*$/, f
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+    if(req.session.randomplay){
+        req.session.randomplay.resolved=[];
+    }
+    
     res.render('index');
 });
 
 // Pagina de creditos
 router.get('/author', function (req, res, next) {
+    if(req.session.randomplay){
+        req.session.randomplay.resolved=[];
+    }
+    
     res.render('author');
 });
+
+router.get('/help', function (req, res, next) {
+    if(req.session.randomplay){
+        req.session.randomplay.resolved=[];
+    }
+    
+    res.render('help');
+});
+
 
 
 // Autoload de rutas que usen :quizId
@@ -115,6 +132,9 @@ router.get('/quizzes/:quizId(\\d+)/play',
     quizController.play);
 router.get('/quizzes/:quizId(\\d+)/check',
     quizController.check);
+
+router.get('/quizzes/randomplay', quizController.randomplay):
+router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.randomcheck);
 
 
 router.get('/quizzes/:quizId(\\d+)/tips/new',
